@@ -1,0 +1,146 @@
+{
+    "summary": {
+        "days": [
+            {
+                "avgresponse": 357,
+                "downtime": 0,
+                "starttime": 1535756400,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 342,
+                "downtime": 0,
+                "starttime": 1535842800,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 381,
+                "downtime": 0,
+                "starttime": 1535929200,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 386,
+                "downtime": 180,
+                "starttime": 1536015600,
+                "unmonitored": 0,
+                "uptime": 86220
+            },
+            {
+                "avgresponse": 422,
+                "downtime": 0,
+                "starttime": 1536102000,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 446,
+                "downtime": 0,
+                "starttime": 1536188400,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 444,
+                "downtime": 0,
+                "starttime": 1536274800,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 435,
+                "downtime": 0,
+                "starttime": 1536361200,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 407,
+                "downtime": 0,
+                "starttime": 1536447600,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 411,
+                "downtime": 0,
+                "starttime": 1536534000,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 396,
+                "downtime": 0,
+                "starttime": 1536620400,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 419,
+                "downtime": 60,
+                "starttime": 1536706800,
+                "unmonitored": 0,
+                "uptime": 86340
+            },
+            {
+                "avgresponse": 392,
+                "downtime": 0,
+                "starttime": 1536793200,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 400,
+                "downtime": 0,
+                "starttime": 1536879600,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 401,
+                "downtime": 0,
+                "starttime": 1536966000,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 414,
+                "downtime": 0,
+                "starttime": 1537052400,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 430,
+                "downtime": 0,
+                "starttime": 1537138800,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 440,
+                "downtime": 0,
+                "starttime": 1537225200,
+                "unmonitored": 180,
+                "uptime": 86220
+            },
+            {
+                "avgresponse": 455,
+                "downtime": 0,
+                "starttime": 1537311600,
+                "unmonitored": 0,
+                "uptime": 86400
+            },
+            {
+                "avgresponse": 452,
+                "downtime": 0,
+                "starttime": 1537398000,
+                "unmonitored": 0,
+                "uptime": 51655
+            }
+        ]
+    }
+}
