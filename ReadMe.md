@@ -17,7 +17,29 @@ and from there into an overall Nexmo public api uptime.
 The tool also makes use of custom JQL in order to query Incidents occurring within the specified date range,
  for which it attempts to calculate average response time - note that these metrics are not fully reliable as 
  we need to double check each incident's work history as a sanity check.  
- 
+
+#### Requirements
+
+KPI requires a `.env` file in the root directory containing the following configuration entries
+
+    bitly.username=<bitly username>
+    bitly.apikey=<bitly api key>
+    
+    aggregator.pingdom.user=<pingdom user>
+    aggregator.pingdom.passwd=<pingdom password>
+    aggregator.pingdom.appkey=<pingdom api key>
+    aggregator.pingdom.url=https://api.pingdom.com/api
+    
+    aggregator.jira.incidentfilter.id=31813
+    aggregator.jira.url=https://nexmoinc.atlassian.net/rest/api/latest
+    aggregator.atlassian.user=<nexmo jira user>
+    aggregator.atlassian.apikey=<nexmo jira api key>
+    aggregator.jira.incident_resolved.field_id=customfield_16700
+    aggregator.jira.first_occurred.field_id=customfield_15600
+    
+These values are loaded into the application environment on startup and are then used for authenticatiion to the three
+services `bit.ly`, `pingdom` and `jira` 
+     
 #### Usage
 
     $ bundle exec ruby ./app.rb -h
