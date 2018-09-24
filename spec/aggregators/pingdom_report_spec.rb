@@ -17,20 +17,26 @@ describe "Pingdom Report" do
 			uptime_pc: 99.9751
 		}
 	}
+	let(:startdate) {
+		DateTime.strptime("2018-09-01", "%Y-%m-%d")
+	}
+	let(:enddate) {
+		DateTime.strptime("2018-09-20", "%Y-%m-%d")
+	}
 	let(:mock_data){ 
 		[{name: 'a', id: 1}, { name: 'b', id: 2}, {name: 'c', id: 3 }]
 	}
 
 	it "parses details data and aggregates it correctly" do 
 
-		subject = Aggregators::Pingdom::Report.new(mock_data, 1535756400, 1537398000)
+		subject = Aggregators::Pingdom::Report.new(mock_data, startdate, enddate)
 
 		res = subject.aggregate(1, data)
 		expect(res).to eq(summary)
 	end
 
 	it "fetches upstream data based on the configured checks" do 
-		subject = Aggregators::Pingdom::Report.new(mock_data, 1535756400, 1537398000)
+		subject = Aggregators::Pingdom::Report.new(mock_data, startdate, enddate)
 
 		expect(subject).to receive(:fetch).exactly(3).times
 
@@ -38,7 +44,7 @@ describe "Pingdom Report" do
 	end
 
 	it "correctly calls through to the pingdom client" do 
-		subject = Aggregators::Pingdom::Report.new([{'name': 'a', 'id': 1}], 1535756400, 1537398000)
+		subject = Aggregators::Pingdom::Report.new([{'name': 'a', 'id': 1}], startdate, enddate)
 
 		expect(subject).to receive(:fetch).with(1)
 

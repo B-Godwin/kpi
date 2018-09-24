@@ -4,6 +4,10 @@ require 'bundler/setup'
 require 'rest-client'
 require 'dotenv/load'
 require 'json'
+require 'bitly'
+
+Bitly.use_api_version_3
+$bitly = Bitly.new(ENV["bitly.username"], ENV["bitly.apikey"])
 
 Dir[File.expand_path "app/**/*.rb"].each{|f| require_relative(f)}
 
@@ -16,7 +20,7 @@ if options.fetch_pingdom
 
 	checks = res['checks'].map {|c| { name: c['name'], id: c['id'] }}
 
-	rep = Aggregators::Pingdom::Report.new(checks,  1535756400, 1537398000, verbose: true)
+	rep = Aggregators::Pingdom::Report.new(checks,  options.start_date, options.end_date, verbose: true)
 
 	rep.generate
 	rep.summarise!

@@ -11,10 +11,9 @@ module Aggregators
 
 			def initialize(checks, from, to, options = {}) 
 				@verbose = options[:verbose] || false
-				puts "Generating Pingdom uptime report for #{timestr(from)} to #{timestr(to)}" if verbose
+				puts "Generating Pingdom uptime report for #{from} to #{to}" if verbose
 				@checks = checks.each_with_object({}) { |e,h| h[e[:id]] = e[:name] }
 				@pb = ProgressBar.create(:title => "Checks", format: "%a %P% Processed: %c from %C", :starting_at => 0, :total => @checks.length)
-				# pp checks
 				@from = from
 				@to = to
 			end
@@ -27,7 +26,7 @@ module Aggregators
 			end
 
 			def fetch(i)
-				res = Client.fetch_check_details id: i, tags: [:api], from: from, to: to
+				res = Client.fetch_check_details id: i, tags: [:api], from: from.to_time.to_i, to: to.to_time.to_i
 				aggregate(i, res)
 			end
 
@@ -58,10 +57,24 @@ module Aggregators
 			end
 
 			def summarise!
+				unless @summary 
+					@summary = 
+						data.map { |e| [e[:name], e[:uptime], e[:downtime], e[:unmonitored], e[:uptime_pc]] }
+							.sort{ |a,b| a[0].downcase <=> b[0].downcase }
 
-				@summary ||= 
-					data.map { |e| [e[:name], e[:uptime], e[:downtime], e[:unmonitored], e[:uptime_pc]] }
-						.sort{ |a,b| a[0].downcase <=> b[0].downcase }
+					totals = ["Totals", 0, 0, 0, 0]
+					len = @summary.length
+
+					@summary.each_with_object(totals) { |e, totals|
+						totals[1] += e[1]
+						totals[2] += e[2]
+						totals[3] += e[3]
+						totals[4] += e[4]
+					}
+
+					summary <<  totals	
+					summary << (["Average", totals[1..4].map{|e| e / len }].flatten)
+				end
 			end
 
 			def headers

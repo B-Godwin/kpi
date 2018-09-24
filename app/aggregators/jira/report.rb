@@ -39,7 +39,11 @@ module Aggregators
 					sev = i["fields"]["customfield_15605"]["value"]
 					created = i["fields"]["customfield_15600"]
 					finished = i["fields"]["customfield_16700"]
-					postmortem = i["fields"]["customfield_16000"].gsub("https://nexmoinc.atlassian.net/wiki/spaces/IM/pages/", "/")
+					postmortem = (i["fields"]["customfield_16000"] || nil)
+
+					if postmortem
+						postmortem = $bitly.shorten(postmortem).short_url
+					end
 					key = i["key"]
 
 					dd = datediff(created, finished)
@@ -61,7 +65,11 @@ module Aggregators
 			end
 
 			def datediff(startdate, enddate) 
-				(DateTime.parse(enddate).to_time.to_i - DateTime.parse(startdate).to_time.to_i)/60 # convert to minutes
+				if enddate.nil? || startdate.nil? 
+					0
+				else
+					(DateTime.parse(enddate).to_time.to_i - DateTime.parse(startdate).to_time.to_i)/60 # convert to minutes
+				end
 			end
 
 			def summarise!
