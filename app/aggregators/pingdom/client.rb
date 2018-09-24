@@ -3,7 +3,7 @@ module Aggregators
 		class Client
 
 			def self.endpoint
-				"#{ENV['aggregator.pingdom.url']}"
+				ENV['aggregator.pingdom.url']
 			end
 
 			def self.tagstring(taglist)
@@ -43,9 +43,6 @@ module Aggregators
 						raise "Error making pingdom api call: #{res.code}, #{res.body}"
 				end
 			end
-
-
-
 		end
 	end
 end

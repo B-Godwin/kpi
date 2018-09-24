@@ -11,7 +11,7 @@ module Formatters
 		def render
 			table = TTY::Table.new header: @headers, rows: @data
 
-			table.render(:basic, width: 80, resize: true)	
+			table.render(:basic) #, width: 200)#, width: 140) #, resize: true)	
 		end
 
 	end

@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rest-client"
-gem "rspec"
+gem "rspec", group: :test
 gem "dotenv"
 gem "concurrent-ruby"
 gem "tty-table"
