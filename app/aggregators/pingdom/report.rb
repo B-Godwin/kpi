@@ -40,6 +40,7 @@ module Aggregators
 				times = values.map {|e| e['starttime'] }.sort
 				starttime, endtime = times[0], times[times.length - 1]
 				
+				avgresponse = values.inject(0) { |i, a| i + a['avgresponse'] }
 				uptime   = values.inject(0) { |i,a| i + a['uptime'] }
 				downtime = values.inject(0) { |i,a| i + a['downtime'] }
 				unknown  = values.inject(0) { |i,a| i + a['unmonitored'] }
@@ -49,6 +50,7 @@ module Aggregators
 					name: checks[id], 
 					starttime: timestr(starttime),
 					endtime: timestr(endtime),
+					avgresponse: (avgresponse / times.length.to_f).truncate(2),
 					downtime: downtime,
 					uptime: uptime,
 					unmonitored: unknown,
@@ -59,10 +61,10 @@ module Aggregators
 			def summarise!
 				unless @summary 
 					@summary = 
-						data.map { |e| [e[:name], e[:uptime], e[:downtime], e[:unmonitored], e[:uptime_pc]] }
+						data.map { |e| [e[:name], e[:uptime], e[:downtime], e[:unmonitored], e[:uptime_pc], e[:avgresponse]] }
 							.sort{ |a,b| a[0].downcase <=> b[0].downcase }
 
-					totals = ["Totals", 0, 0, 0, 0]
+					totals = ["Totals", 0, 0, 0, 0, 0]
 					len = @summary.length
 
 					@summary.each_with_object(totals) { |e, totals|
@@ -72,13 +74,16 @@ module Aggregators
 						totals[4] += e[4]
 					}
 
+					avg =  @summary.map { |e| e[5] }
+							.inject(0.0) { |sum, el| sum + el } / len.to_f
+
 					summary <<  totals	
-					summary << (["Average", totals[1..4].map{|e| e / len }].flatten)
+					summary << (["Average", totals[1..4].map{|e| e / len }, avg.truncate(4)].flatten)
 				end
 			end
 
 			def headers
-				["API", "Uptime", "Downtime", "Unmonitored", "Uptime %"]
+				["API", "Uptime", "Downtime", "Unmonitored", "Uptime %", "Response (ms)"]
 			end
 
 		end
