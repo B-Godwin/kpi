@@ -7,7 +7,7 @@ require 'json'
 require 'bitly'
 
 Bitly.use_api_version_3
-$bitly = Bitly.new(ENV["bitly.username"], ENV["bitly.apikey"])
+$bitly = Bitly.new(ENV["bitly_username"], ENV["bitly_apikey"])
 
 Dir[File.expand_path "app/**/*.rb"].each{|f| require_relative(f)}
 
