@@ -15,31 +15,31 @@ It retrieves each status endpoint for the specified date range, and aggregates t
 and from there into an overall Nexmo public api uptime.
 
 The tool also makes use of custom JQL in order to query Incidents occurring within the specified date range,
- for which it attempts to calculate average response time - note that these metrics are not fully reliable as 
+ for which it attempts to calculate average response time - note that these metrics are not fully reliable as
  we need to double check each incident's work history as a sanity check.  
 
 #### Requirements
 
 KPI requires a `.env` file in the root directory containing the following configuration entries
 
-    bitly.username=<bitly username>
-    bitly.apikey=<bitly api key>
-    
-    aggregator.pingdom.user=<pingdom user>
-    aggregator.pingdom.passwd=<pingdom password>
-    aggregator.pingdom.appkey=<pingdom api key>
-    aggregator.pingdom.url=https://api.pingdom.com/api
-    
-    aggregator.jira.incidentfilter.id=31813
-    aggregator.jira.url=https://nexmoinc.atlassian.net/rest/api/latest
-    aggregator.atlassian.user=<nexmo jira user>
-    aggregator.atlassian.apikey=<nexmo jira api key>
-    aggregator.jira.incident_resolved.field_id=customfield_16700
-    aggregator.jira.first_occurred.field_id=customfield_15600
-    
+    bitly_username=<bitly username>
+    bitly_apikey=<bitly api key>
+
+    aggregator_pingdom_user=<pingdom user>
+    aggregator_pingdom_passwd=<pingdom password>
+    aggregator_pingdom_appkey=<pingdom api key>
+    aggregator_pingdom_url=https://api.pingdom.com/api
+
+    aggregator_jira_incidentfilter.id=31813
+    aggregator_jira_url=https://nexmoinc.atlassian.net/rest/api/latest
+    aggregator_atlassian_user=<nexmo jira user>
+    aggregator_atlassian_apikey=<nexmo jira api key>
+    aggregator_jira_incident_resolved_field_id=customfield_16700
+    aggregator_jira_first_occurred_field_id=customfield_15600
+
 These values are loaded into the application environment on startup and are then used for authenticatiion to the three
-services `bit.ly`, `pingdom` and `jira` 
-     
+services `bit.ly`, `pingdom` and `jira`
+
 #### Usage
 
     $ bundle exec ruby ./app.rb -h
@@ -114,12 +114,12 @@ services `bit.ly`, `pingdom` and `jira`
     $ bundle exec ruby app.rb -j
     Retrieving jira stats for 2018-09-01 to 2018-09-24
     Post mortem url: https://nexmoinc.atlassian.net/wiki/spaces/IM/pages/
-    
+
     Ticket Severity Created                      Resolved                     Duration Post-mortem
     IM-171 Sev3     2018-09-13T07:30:00.000+0100 2018-09-14T18:30:00.000+0100 2100     http://bit.ly/2O2NOzM
     IM-168 Sev1     2018-09-11T12:32:00.000+0100 2018-09-11T17:05:00.000+0100 273      http://bit.ly/2O2NPUm
     IM-167 Sev3     2018-09-07T19:00:00.000+0100 2018-09-09T15:00:00.000+0100 2640     http://bit.ly/2ObgqHa
-    
+
     Totals count    mean duration
     Sev1   1        273.0
     Sev2   0        0
