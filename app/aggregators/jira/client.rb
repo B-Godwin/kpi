@@ -2,14 +2,14 @@ module Aggregators
 	module Jira
 		class Client
 			def self.endpoint
-				ENV["aggregator.jira.url"]
+				ENV["aggregator_jira_url"]
 			end
 
 			def self.jql_filter(startdate, enddate)
 				a = "project = IM AND createdDate >= #{startdate.strftime('%Y-%m-%d')} AND createdDate <= #{enddate.strftime('%Y-%m-%d')} AND Type in (Application, Infrastructure)"
 			end
 
-			# curl  --user jeremy.botha@vonage.com:UJpsXJFsvRSdGRJJZv2mB2B1  
+			# curl  --user jeremy.botha@vonage.com:UJpsXJFsvRSdGRJJZv2mB2B1
 			# "https://nexmoinc.atlassian.net/rest/api/latest/search?jql=project+%3D+IM+AND+createdDate+%3E%3D
 			# +startOfMonth()+AND+Type+in+(Application,+Infrastructure)&fields=customfield_15600,customfield_16700" | python -m json.tool
 			def self.execute_filter startdate, enddate
@@ -23,10 +23,10 @@ module Aggregators
 
 			def self.get(options = {})
 
-				res = RestClient::Request.execute method: :get, 
+				res = RestClient::Request.execute method: :get,
 											url: options[:endpoint],
-											user: ENV["aggregator.atlassian.user"],
-											password: ENV["aggregator.atlassian.apikey"], 
+											user: ENV["aggregator_atlassian_user"],
+											password: ENV["aggregator_atlassian_apikey"],
 											headers: { "Accept" => "application/json", params: options[:params] || {} }
 
 
